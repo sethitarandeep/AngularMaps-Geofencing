@@ -1,7 +1,20 @@
-# CarlasCattle
+# Carla's Cattle
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.
-
+<ul>
+  <li>
+    <p>This is a Single Page application built using Angular.</p>
+  </li>
+  <li>
+    <p>It uses Angular Google Maps package to harness the power of Google Maps API.</p>
+  </li>
+  <li>
+    <p>The application visualises the location of cattle which belongs to Carla.</p>
+  </li>
+  <li>
+    <p>It helps to draw a virtual paddock/fence where the cattle is supposed to graze.</p>
+  </li>
+</ul>
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
