@@ -1,3 +1,15 @@
 .spacer {
   flex: 1 1 auto;
 }
+img{
+  display: flex;
+  size: auto;
+  float: left;
+  width: auto;
+  max-width: 400px;
+  padding: 0.5%;
+}
+
+mat-toolbar-row{
+  height: fit-content;
+}

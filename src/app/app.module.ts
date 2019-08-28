@@ -7,12 +7,18 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatCardModule, MatIconModule, MatPaginatorModule, MatTableModule, MatTabsModule} from '@angular/material';
+import {
+  MatCardModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSlideToggleModule,
+  MatTableModule,
+  MatTabsModule
+} from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
 import {CattleDataServiceService} from './cattle-data-service.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CattleMapComponent } from './cattle-map/cattle-map.component';
-import { CattleListComponent } from './cattle-list/cattle-list.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +26,6 @@ import { CattleListComponent } from './cattle-list/cattle-list.component';
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
-    CattleMapComponent,
-    CattleListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { CattleListComponent } from './cattle-list/cattle-list.component';
     MatTabsModule,
     MatCardModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSlideToggleModule,
+    MatInputModule
   ],
   providers: [
     CattleDataServiceService,

@@ -3,6 +3,7 @@ import { MouseEvent } from '@agm/core';
 import {Marker} from '../marker';
 import { HttpClient } from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['cattleId', 'status', 'description', 'coordinates'];
   dataSource: MatTableDataSource<Marker>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   // initial center position for the map
   lat: number = -27.8161;
   lng: number = 152.3690;
@@ -28,53 +30,32 @@ export class DashboardComponent implements OnInit {
     },
     strictBounds: false,
   }
+  togglePaddock = false;
   ngOnInit() {
     this.getCattleData();
   }
-    getCattleData() {
-        this.httpService.get('./assets/dataSource.json').subscribe(data => {
-          console.log('Data=======>>>>', data);
-          this.markers = data as Marker[];
-          this.dataSource = new MatTableDataSource<Marker>(this.markers);
-          this.dataSource.paginator = this.paginator;
-       });
+  getCattleData() {
+      this.httpService.get('./assets/dataSource.json').subscribe(data => {
+        this.markers = data as Marker[];
+        this.dataSource = new MatTableDataSource<Marker>(this.markers);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+     });
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
+  }
+  editPaddock() {
+    this.togglePaddock = !this.togglePaddock;
+  }
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+    console.log(`clicked the marker: ${label || index}`);
   }
-
-  mapClicked($event: MouseEvent) {
-    /*this.markers.push({
-      lat: $event.coords.lat,
-      lng: $event.coords.lng,
-      draggable: true
-    });*/
-  }
-
   markerDragEnd(m: Marker, $event: MouseEvent) {
     console.log('dragEnd', m, $event);
   }
-
-  /*markers: Marker[] = [
-    {
-      lat: 51.673858,
-      lng: 7.815982,
-      label: 'A',
-      draggable: true
-    },
-    {
-      lat: 51.373858,
-      lng: 7.215982,
-      label: 'B',
-      draggable: false
-    },
-    {
-      lat: 51.723858,
-      lng: 7.895982,
-      label: 'C',
-      draggable: true
-    }
-  ];*/
-
 }
 

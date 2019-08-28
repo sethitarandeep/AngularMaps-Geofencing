@@ -1,21 +1,59 @@
 <div>
-  <div class="cattle-container gray-bg" style="background-color: lightgray">
+  <div class="cattle-container gray-bg" >
     <h1><strong>Carla's Virtual Paddock</strong></h1>
 
     <mat-card>
-      <mat-card-header>
-        <mat-card-title>Map Legend</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <ul>
-        <li>
-          <p >Cattle grazing inside the paddock. <img style="height: 35px; width: 35px; background-size: " src="../../assets/img/cow-in-paddock.png"></p>
-        </li>
-        <li>
-          <p >Cattle grazing outside the paddock. <img style="height: 35px; width: 35px;" src="../../assets/img/cow-outside-paddock.png"></p>
-        </li>
-        </ul>
-      </mat-card-content>
+      <div class="row">
+      <div class="col-4">
+        <mat-card-header>
+          <mat-card-title>Introduction</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+              <ul>
+                <li>
+                  <p>This is a Single Page application built using Angular.</p>
+                </li>
+                <li>
+                  <p>It uses Angular Google Maps package to harness the power of Google Maps API.</p>
+                </li>
+                <li>
+                  <p>The application visualises the location of cattle which belongs to Carla.</p>
+                </li>
+                <li>
+                  <p>It helps to draw a virtual paddock/fence where the cattle is supposed to graze.</p>
+                </li>
+              </ul>
+        </mat-card-content>
+      </div>
+      <div class="col-4">
+        <mat-card-header>
+          <mat-card-title>Map Legend</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul>
+            <li>
+              <p >Cattle grazing inside the paddock. <img class="legend-img" src="../../assets/img/cow-in-paddock.png"></p>
+            </li>
+            <li>
+              <p >Cattle grazing outside the paddock. <img class="legend-img" src="../../assets/img/cow-outside-paddock.png"></p>
+            </li>
+          </ul>
+        </mat-card-content>
+      </div>
+        <div class="col-4">
+          <mat-card-header>
+            <mat-card-title>Paddock Configuration</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-slide-toggle
+              name="paddockToggle"
+              [color]="primary"
+              (toggleChange)="editPaddock()">
+              <p>Edit Paddock</p>
+            </mat-slide-toggle>
+          </mat-card-content>
+        </div>
+      </div>
     </mat-card>
   </div>
 </div>
@@ -54,44 +92,36 @@
               [radius]="4750"
               [fillColor]="'blue'"
               [circleDraggable]="false"
-              [editable]="false">
+              [editable]="togglePaddock">
   </agm-circle>
 
 </agm-map>
 
 </div>
-  <div class="cattle-container gray-bg" style="background-color: lightgray">
+  <div class="cattle-container gray-bg" >
 
     <mat-card>
       <mat-card-header>
-        <mat-card-title>Cattle List</mat-card-title>
+        <mat-card-title>Cattle Records</mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        <mat-form-field class="col-12">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
         <div class="mat-elevation-z8">
           <mat-table [dataSource]="dataSource" >
-
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- Position Column -->
             <ng-container matColumnDef="cattleId">
               <mat-header-cell *matHeaderCellDef> Cattle Id </mat-header-cell>>
               <mat-cell *matCellDef="let element"> {{element.cattleId}} </mat-cell>>
             </ng-container>
-
-            <!-- Name Column -->
             <ng-container matColumnDef="status">
               <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>>
               <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>>
             </ng-container>
-
-            <!-- Weight Column -->
             <ng-container matColumnDef="description">
               <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>>
               <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>>
             </ng-container>
-
-            <!-- Symbol Column -->
             <ng-container matColumnDef="coordinates">
               <mat-header-cell *matHeaderCellDef> Coordinates </mat-header-cell>>
               <mat-cell *matCellDef="let element"> (Lat: {{element.lat.toFixed(2)}}, Long: {{element.lng.toFixed(2)}}) </mat-cell>

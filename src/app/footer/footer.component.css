@@ -8,6 +8,10 @@ footer{
 div{
   padding-top: 1%
 }
+.git{
+  font-size: 32pt;
+  font-weight: bolder;
+}
 a{
   color: white;
   text-decoration: none;
