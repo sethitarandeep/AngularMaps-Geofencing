@@ -1,0 +1,14 @@
+footer{
+  height: 20%;
+  text-align: center;
+  background-color: #673ab7;
+  color: white;
+}
+
+div{
+  padding-top: 1%
+}
+a{
+  color: white;
+  text-decoration: none;
+}

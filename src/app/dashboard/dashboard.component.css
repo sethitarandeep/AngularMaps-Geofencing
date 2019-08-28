@@ -1,0 +1,25 @@
+agm-map {
+  height: 100%;
+}
+
+.cattle-container{
+  width: 90%;
+  height: 90%;
+  max-height: 900px;
+  padding: 5% 5% 0% 5%;
+}
+.gray-bg{
+  background-color: lightgray;
+}
+
+mat-card{
+  height: fit-content;
+  max-height: fit-content;
+}
+mat-table{
+  height: 100%;
+}
+mat-card-title{
+  align-self: center;
+  font-size: large;
+}

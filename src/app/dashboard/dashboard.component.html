@@ -1,0 +1,109 @@
+<div>
+  <div class="cattle-container gray-bg" style="background-color: lightgray">
+    <h1><strong>Carla's Virtual Paddock</strong></h1>
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Map Legend</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <ul>
+        <li>
+          <p >Cattle grazing inside the paddock. <img style="height: 35px; width: 35px; background-size: " src="../../assets/img/cow-in-paddock.png"></p>
+        </li>
+        <li>
+          <p >Cattle grazing outside the paddock. <img style="height: 35px; width: 35px;" src="../../assets/img/cow-outside-paddock.png"></p>
+        </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div class="cattle-container gray-bg">
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [minZoom]="13"
+  [maxZoom]="16"
+  [restriction]="restriction"
+  [disableDefaultUI]="false"
+  [zoomControl]="false"
+  (mapClick)="mapClicked($event)">
+
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker(m.label, i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [label]="m.label"
+    [iconUrl]="m.iconUrl"
+    [markerDraggable]="false"
+    (dragEnd)="markerDragEnd(m, $event)">
+
+    <agm-info-window>
+      <p><strong>Cattle Id:</strong> {{m.cattleId}}</p>
+      <p><strong>Status:</strong> {{m.status}}</p>
+      <p><strong>Description:</strong> {{m.description}}</p>
+      <p><strong>Coordinates:</strong> (Lat: {{m.lat.toFixed(2)}}, Long: {{m.lng.toFixed(2)}})</p>
+    </agm-info-window>
+
+  </agm-marker>
+
+  <agm-circle [latitude]="lat" [longitude]="lng"
+              [radius]="4750"
+              [fillColor]="'blue'"
+              [circleDraggable]="false"
+              [editable]="false">
+  </agm-circle>
+
+</agm-map>
+
+</div>
+  <div class="cattle-container gray-bg" style="background-color: lightgray">
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Cattle List</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="mat-elevation-z8">
+          <mat-table [dataSource]="dataSource" >
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="cattleId">
+              <mat-header-cell *matHeaderCellDef> Cattle Id </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> {{element.cattleId}} </mat-cell>>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="status">
+              <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="coordinates">
+              <mat-header-cell *matHeaderCellDef> Coordinates </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> (Lat: {{element.lat.toFixed(2)}}, Long: {{element.lng.toFixed(2)}}) </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
