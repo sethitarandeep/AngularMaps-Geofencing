@@ -47,7 +47,7 @@
           <mat-card-content>
             <mat-slide-toggle
               name="paddockToggle"
-              [color]="primary"
+              [color]="'primary'"
               (toggleChange)="editPaddock()">
               <p>Edit Paddock</p>
             </mat-slide-toggle>
@@ -67,7 +67,7 @@
   [restriction]="restriction"
   [disableDefaultUI]="false"
   [zoomControl]="false"
-  (mapClick)="mapClicked($event)">
+>
 
   <agm-marker
     *ngFor="let m of markers; let i = index"
